@@ -1,0 +1,28 @@
+version: '3'
+services:
+  zkteco:
+    image: zkteco/zkteco-middleware:latest
+    container_name: zkteco-middleware
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_NAME=zkteco
+
+  db:
+    image: postgres:latest
+    container_name: zkteco-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=zkteco
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
